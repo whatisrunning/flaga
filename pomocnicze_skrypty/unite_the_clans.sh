@@ -2,52 +2,47 @@
 
 # Warcraft 2 code - win scenario instantly.
 
+
 # Ten code to cheat-mode: wygrana przygody 5 komendami :)
 
+# Na świeżym serwerze:
 
+# 1. wejdź na root (utwórz go jeżeli jeszcze nie robiłeś).
+#
+#    Napisz:
+#    echo $USER
+#    
+#    jak pokazuje root to idź do kroku 2. Jeżeli nie, utwórz hasło dla root wpisując:
+#
+#    sudo su
 
+#    i sprawdź znów pisząc "echo $USER", aż będzie pokazywać root. Jak masz błąd, spytaj na grupie o pomoc.
 
+# 2. Przypisz wartości zmiennym:
+#
+# NEW_USER=ja_xd
+# DOMENA=TU_WSTAW_NAZWE_SWOJEJ_DOMENY
+   
+# 3. Odpal skrypt
+# 
+# wget -qO - 'https://raw.githubusercontent.com/ZPXD/flaga/main/pomocnicze_skrypty/unite_the_clans2.sh' | bash -s $NEW_USER $DOMENA
 
-# Nazwa użytkownika
-
+# Zmienne.
 the_user=$1
 domena=$2
 klucz=xd_$1
 flaga_start=`pwd`/flaga
 
 # Update paczek.
+apt update --yes
 apt upgrade --yes
-apt install curl --yes
 
-#test IP domeny
-HOST=$(host $DOMENA | awk '{ print $4 }')
+# SCRIPT:
+apt install git --yes
+git clone https://github.com/ZPXD/flaga.git
 
-#twoje aktualne IP
-IP=$(curl -s http://checkip.amazonaws.com/)
-
-echo ""
-echo "wpisana domena: $DOMENA"
-echo ""
-
-if [ "$IP" = "$HOST" ]
-then
- echo "domena jest OK"
-else
- echo "domena jest zla"
-fi
-
-echo "twoje IP:"
-echo "$IP"
-echo "rekord A z domeny:"
-echo "$HOST"
-
-wget_output=$(wget -q "$DOMENA")
-if [ $? -ne 0 ]; then
- echo "HTTP error"
-else
- echo "HTTP OK"
-fi
-
+# Clash
+source flaga/pomocnicze_skrypty/unite_the_clans.sh $NEW_USER $DOMENA
 
 # Użytkownicy.
 adduser $the_user --gecos GECOS --disabled-password
@@ -96,51 +91,27 @@ chown -R $the_user:$the_user /var/www/flaga
 # How to download the key:
 apt install curl --yes
 server_ip=`curl -s http://checkip.amazonaws.com`
-echo " "
-echo " "
-echo " "
-echo " "
-echo " "
-echo " "
-echo " "
-echo " "
-echo " "
 if [ $(getent passwd ubuntu) ] ; then
-    echo "Edytuj poniższą komendę i wklej u siebie w terminalu/powershellu na komputerze."
-    echo "Pobierze się plik. Przenieś go do swojego folderu ssh."
+    echo "Get your key by using command:"
+    echo "Paste below command into your terminal in computer"
+    echo " while being in /.shh folder:"
     echo " "
     echo "scp -i [TU_WSTAW_NAZWE_SWOJEGO_KLUCZA_AWS].pem ubuntu@$server_ip:/home/ubuntu/$klucz $klucz"
-    echo " "
-    echo "Jest tam też plik config. Dodaj w nim poprawnie nazwę klucza"
-    echo "Host moj_serwerek"
-    echo "  HostName 1.1.1.1"
-    echo "  User rafal_paczes"
-    echo "  IdentityFile /home/rafi/.ssh/potezny_klucz_rafiego"
 else
-    echo "Edytuj poniższą komendę i wklej u siebie w terminalu/powershellu na komputerze."
-    echo "Pobierze się plik. Przenieś go do swojego folderu ssh."
+    echo "Get your key by using command:"
+    echo "Paste below command into your terminal in computer"
+    echo " while being in /.shh folder:"
     echo " "
     echo "scp root@$server_ip:/home/$the_user/.ssh/$klucz $klucz"
-    echo " "
-    echo "Jest tam też plik config. Dodaj w nim poprawnie nazwę klucza"
-    echo "Host moj_serwerek"
-    echo "  HostName $server_ip"
-    echo "  User $the_user"
-    echo "  IdentityFile ~/.ssh/$klucz"
 fi
 
 # INFO:
-echo " "
-echo " "
+clear
 echo "Stworzony użytkownik:" $the_user
 echo "Stworzona strona na domenie:" $domena
 echo " "
-echo " "
-echo " "
 echo "Sprawdź Twoją domenę w przeglądarce."
-echo " "
-tutaj=`pwd`
-echo "PS: jesteś w folderze:" $tutaj
 
 su $the_user
-cd /var/www/flaga
+cd /var/www
+pwd
