@@ -127,7 +127,7 @@ else
 
 fi
 
-klucz=klucz_$1
+klucz=klucz_xd
 #uninstall apache
 systemctl stop apache
 apt remove apache2 --yes
