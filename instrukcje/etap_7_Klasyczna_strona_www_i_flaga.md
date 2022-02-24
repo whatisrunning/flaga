@@ -236,9 +236,7 @@ Pojawią się 2 klucze o nazwie xd_$USER. W przeciwnym razie powtórz te kroki a
 ### 7. Pobieranie z serwera KLUCZA rsa .pub
 
 
-#### 3. I gotowe :) teraz, aby logować się bez hasła krótką komendą, 
 
-pobierz jeszcze klucz RSA, umieść go wypełniając poniższe:
 
 #### 1. Otwórz VSCode i wejdź na swój serwer. 
 
